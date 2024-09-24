@@ -17,23 +17,24 @@
                 //Calling method "PlayGame".
                 PlayGame(guesses, rndNumber);
 
+                /* Checking to see whether the player wants to play again or not. A switch to 
+                 * handle the answer. */
                 Console.WriteLine("Vill du spela igen? j/n:");
-                string playAgain = Console.ReadLine();
+                string playAgain = Console.ReadLine().ToUpper();
 
-                // Checking to see wheather the player wants to play again or not.
-                if (playAgain.ToUpper() == "J")
+                switch (playAgain)
                 {
-                    Console.Clear();
-                }
-                else if (playAgain.ToUpper() == "N")
-                {
-                    Console.WriteLine("\nTack för den här gången!");
-                    play = false;
-                }
-                else
-                {
-                    Console.WriteLine("Okänt svarsalternativ. Programmet stängs ner.");
-                    play = false;
+                    case "J":
+                        Console.Clear();
+                        break;
+                    case "N":
+                        Console.WriteLine("\nTack för den här gången!");
+                        play = false;
+                        break;
+                    default:
+                        Console.WriteLine("Okänt svarsalternativ. Programmet stängs ner.");
+                        play = false;
+                        break;
                 }
             }
         }
