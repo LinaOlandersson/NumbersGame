@@ -13,7 +13,7 @@
 
                 /* Checking to see whether the player wants to play again or not. A switch to 
                  * handle the answer. */
-                Console.Write("\nVill du spela igen? j/n:");
+                Console.Write("\nVill du spela igen? j/n: ");
                 string playAgain = Console.ReadLine().ToUpper();
 
                 switch (playAgain)
