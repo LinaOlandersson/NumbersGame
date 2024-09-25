@@ -10,16 +10,16 @@
             {
                 /* Declaring the needed variables for the method and producing
                  * a random number.*/
-                int[] guesses = new int[5];
+
                 Random rnd = new Random();
                 int rndNumber = rnd.Next(1, 21);
 
                 //Calling method "PlayGame".
-                PlayGame(guesses, rndNumber);
+                PlayGame(rndNumber);
 
                 /* Checking to see whether the player wants to play again or not. A switch to 
                  * handle the answer. */
-                Console.WriteLine("Vill du spela igen? j/n:");
+                Console.WriteLine("\nVill du spela igen? j/n:");
                 string playAgain = Console.ReadLine().ToUpper();
 
                 switch (playAgain)
@@ -32,7 +32,7 @@
                         play = false;
                         break;
                     default:
-                        Console.WriteLine("Okänt svarsalternativ. Programmet stängs ner.");
+                        Console.WriteLine("\nOkänt svarsalternativ. Programmet stängs ner.");
                         play = false;
                         break;
                 }
@@ -42,44 +42,56 @@
         /*                   --------------PLAY GAME----------------
         This method gives the user five tries on guessing a random number. The program directs
         the user with 'too high' or 'too low' ands prints the number if the user runs out of
-        guesses. */ 
+        guesses. */
 
-
-        static void PlayGame(int[] guesses, int rndNumber)
+        static void PlayGame(int rndNumber)
         {
             Console.WriteLine("Välkommen! Jag tänker på ett nummer mellan 1 och 20. " +
-                "Kan du gissa vilket? Du får fem försök."); 
+                "Kan du gissa vilket? Du får fem försök.");
+            int guess;
             int counter = 0;
-            
-            /* A for loop that saves each guess to an array. Each wrong guess adds one
-             * to the counter. If the counter reaches 5 the game ends. */
+
+            /* A for loop that compares the guess to the random number. Each wrong guess 
+             * adds one to a counter. If the counter reaches 4 (5 guesses) the game ends. */
             for (int i = 0; i < 5; i++)
             {
-                while (!int.TryParse(Console.ReadLine(), out guesses[i]))
+                while (!int.TryParse(Console.ReadLine(), out guess))
                 {
                     Console.WriteLine("Det var ingen siffra. Försök igen!");
                 }
-                if (guesses[i] == rndNumber)
+                if (guess == rndNumber)
                 {
-                    Console.WriteLine($"Wohoo! Du klarade det på {i + 1} försök!");
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    Console.WriteLine($"\nWohoo! Du klarade det på {i + 1} försök!");
+                    Console.ResetColor();
                     break;
                 }
-                else if (guesses[i] < rndNumber)
+                else if (counter == 4)
                 {
-                    Console.WriteLine("Tyvärr, du gissade för lågt!");
+                    Console.WriteLine($"\nTyvärr lyckades du inte gissa talet på fem " +
+                        $"försök. Talet var {rndNumber}.");
+                }
+                else if (guess == rndNumber + 1)
+                {
+                    Console.WriteLine("Tyvärr, du gissade för högt. Men det bränns!");
                     counter++;
                 }
-                else
+                else if (guess > rndNumber)
                 {
                     Console.WriteLine("Tyvärr, du gissade för högt!");
                     counter++;
                 }
-            }
-            if (counter == 5)
-            {
-                Console.WriteLine($"\nTyvärr lyckades du inte gissa talet på fem försök. Talet var {rndNumber}.");
+                else if (guess == rndNumber - 1)
+                {
+                    Console.WriteLine("Tyvärr, du gissade för lågt. Men det bränns!");
+                    counter++;
+                }
+                else if (guess < rndNumber)
+                {
+                    Console.WriteLine("Tyvärr, du gissade för lågt!");
+                    counter++;
+                }
             }
         }
-
     }
 }
